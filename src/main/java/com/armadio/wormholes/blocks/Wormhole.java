@@ -9,6 +9,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -51,8 +53,9 @@ public class Wormhole extends BlockContainer{
         Wormholes.log.error("POSZ",entity.posZ);*/
     }
 
-    public void collided(Entity entity, int x, int y, int z){
-
-        entity.setPosition(te.getX(), te.getY(), te.getZ());
+    public void collided(Entity entity, int x, int y, int z, World world){
+        HashMap<Integer[], Integer[]> map = (HashMap)(Map)world.mapStorage.loadData(HashMap.class, "wormholes");
+        Integer[] key = {x,y,z};
+        entity.setPosition(map.get(key)[0], map.get(key)[1], map.get(key)[2]);
     }
 }
