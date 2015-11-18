@@ -1,5 +1,6 @@
 package com.armadio.wormholes.tileentity;
 
+import com.armadio.wormholes.ModItemsBlocks;
 import com.armadio.wormholes.Wormholes;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.Random;
@@ -17,40 +19,14 @@ import java.util.Random;
  */
 public class TileEntityWormhole extends TileEntity {
 
-    private int x,y,z;
-
-    public int getZ() {
-        return z;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public TileEntityWormhole(){
-
-    }
-
-    public TileEntityWormhole(Random r){
-        x = (r.nextBoolean()?(-1):1) * r.nextInt(3000);
-        y = 100 + r.nextInt(100);
-        z = (r.nextBoolean()?(-1):1) * r.nextInt(3000);
-
-        getDescriptionPacket();
-
-        if(FMLCommonHandler.instance().getEffectiveSide().isServer())
-        Wormholes.log.error("POSITION  "+ x+" "+y+" "+z, "POSITION");
-    }
+    public static String COORD_TAG = "coords";
+    public int x,y,z;
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
 
-        NBTTagList tagList = tagCompound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+        NBTTagList tagList = tagCompound.getTagList(COORD_TAG, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
 
@@ -76,7 +52,7 @@ public class TileEntityWormhole extends TileEntity {
         tag.setInteger("y",y);
 
         itemList.appendTag(tag);
-        tagCompound.setTag("coords",itemList);
+        tagCompound.setTag(COORD_TAG,itemList);
 
         if(FMLCommonHandler.instance().getEffectiveSide().isServer())
             Wormholes.log.error("WRITTEN" + x +" " + y + " "+ z," ");
