@@ -47,13 +47,9 @@ public class Wormholes {
         config = new Configuration(event.getSuggestedConfigurationFile());
         //Configurations.syncConfig();
 
-
         ModItemsBlocks.initBlocks();
         ModItemsBlocks.initItems();
-        BlockRecipes.initShapedRecipes();
-        ItemRecipes.initShapedRecipes();
-        ItemRecipes.initShapelessRecipes();
-        ItemRecipes.initSmeltingRecipes();
+        ModItemsBlocks.initWorldGen();
         log.info("Wormholes is pre initializating");
     }
 
@@ -62,7 +58,6 @@ public class Wormholes {
         //registra blocchi, etc
         proxy.registerRenders();
         log.info("Wormholes is initializating");
-        GameRegistry.registerWorldGenerator(wormHoleWorldGen, 0);
     }
 
     @Mod.EventHandler

@@ -25,9 +25,9 @@ public class WormHoleWorldGen implements IWorldGenerator {
             int z1 = zChunk * 16 + random.nextInt(16);
             int y1 = world.getHeightValue(x1, z1);
 
-            int x2 = x1 + random.nextInt(20000) - 10000;
+            int x2 = x1 + ((random.nextBoolean()?(-1):1) * (random.nextInt(10000) + 5000));
             int y2 = 100 + random.nextInt(100);
-            int z2 = z1 + random.nextInt(20000) - 10000;
+            int z2 = z1 + ((random.nextBoolean()?(-1):1) * (random.nextInt(10000) + 5000));
 
             world.setBlock(x1,y1,z1, ModItemsBlocks.wormhole);
             world.setBlock(x2,y2,z2, ModItemsBlocks.wormhole);

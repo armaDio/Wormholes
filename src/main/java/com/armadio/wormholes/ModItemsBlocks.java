@@ -1,6 +1,7 @@
 package com.armadio.wormholes;
 
 import com.armadio.wormholes.blocks.Wormhole;
+import com.armadio.wormholes.gen.WormHoleWorldGen;
 import com.armadio.wormholes.tileentity.TileEntityWormhole;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -11,6 +12,7 @@ import net.minecraft.block.Block;
 public class ModItemsBlocks {
 
     public static Block wormhole;
+    public static WormHoleWorldGen wormHoleWorldGen;
 
     public static void initItems(){
 
@@ -19,6 +21,10 @@ public class ModItemsBlocks {
         wormhole = new Wormhole();
         GameRegistry.registerBlock(wormhole, "wormhole");
         GameRegistry.registerTileEntity(TileEntityWormhole.class,"TileEntityWormhole");
+    }
+
+    public static void initWorldGen(){
+        wormHoleWorldGen = new WormHoleWorldGen(); GameRegistry.registerWorldGenerator(wormHoleWorldGen, 0);
     }
 
 }
