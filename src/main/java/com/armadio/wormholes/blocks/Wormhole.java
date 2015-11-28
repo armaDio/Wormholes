@@ -1,10 +1,13 @@
 package com.armadio.wormholes.blocks;
 
 import com.armadio.wormholes.ModItemsBlocks;
+import com.armadio.wormholes.lib.Reference;
+import com.armadio.wormholes.particles.WormholeParticleFX;
 import com.armadio.wormholes.tileentity.TileEntityWormhole;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,6 +36,7 @@ public class Wormhole extends BlockContainer{
         this.setBlockUnbreakable();
 
         this.setBlockName("wormhole");
+        setBlockTextureName(Reference.MOD_ID+":"+"wormhole");
         //this.setCreativeTab(CreativeTabs.tabDecorations);
         }
 
@@ -46,13 +50,22 @@ public class Wormhole extends BlockContainer{
         return null;
     }
 
+
+    @Override
+    public void randomDisplayTick(World world, int x, int y, int z, Random r) {
+        double fx = r.nextGaussian();
+        double dx = -0.5 + r.nextDouble()*2;
+        double fz = r.nextGaussian();
+        double dz = -0.5 + r.nextDouble()*2;
+        //TODO fix particle rotation
+        //Minecraft.getMinecraft().effectRenderer.addEffect(new WormholeParticleFX(world , x + fx + dx , y , z + fz + dz ));
+    }
+
+
     @Override
     public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         super.onEntityCollidedWithBlock(world, x, y, z, entity);
         TileEntityWormhole te = (TileEntityWormhole) world.getTileEntity(x, y,z);
-        entity.setPosition(te.x+2,te.y, te.z+2);
-        if(entity instanceof EntityPlayer){
-            ((EntityPlayer)entity).addPotionEffect(new PotionEffect(Potion.jump.id,20*10,9));
-        }
+        entity.setPosition(te.x,te.y-2, te.z);
     }
 }
