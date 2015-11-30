@@ -44,8 +44,8 @@ public class WormholeParticleFX extends EntityFX {
         float z = (float)(prevPosZ+(posZ-prevPosZ)*partialTicks-interpPosZ);
         tess.addVertexWithUV(x-par3*scale-par6*scale,y-par4*scale,z-par5*scale-par7*scale,0,0);
         tess.addVertexWithUV(x-par3*scale+par6*scale,y+par4*scale,z-par5*scale+par7*scale,1,0);
-        tess.addVertexWithUV(x+par3*scale+par6*scale,y+par4*scale,z-par5*scale+par7*scale,1,1);
-        tess.addVertexWithUV(x+par3*scale-par6*scale,y-par4*scale,z-par5*scale-par7*scale,0,1);
+        tess.addVertexWithUV(x+par3*scale+par6*scale,y+par4*scale,z+par5*scale+par7*scale,1,1);
+        tess.addVertexWithUV(x+par3*scale-par6*scale,y-par4*scale,z+par5*scale-par7*scale,0,1);
         setRotation(0,rotation);
         rotation+=15;
         tess.draw();
